@@ -21,7 +21,12 @@
 **shorthand-mem** compresses verbose PRDs, prompt buffers, codebases, and research papers directly inside Claude's environment — before they exhaust your context window. Same precision. A fraction of the token cost. Every compression is saved to memory, exported as a `.shm` file, and reconstructable back to full prose on demand.
 
 ---
+### shorthand-mem in Action
 
+<p align="center">
+  <img src="shorthand-mem-demo.png" alt="shorthand-mem Token Compression Metrics" width="800">
+</p>
+---
 ## How It Works
 
 ```text
