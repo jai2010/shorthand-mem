@@ -1,42 +1,101 @@
-# 🗜️ Shorthand-mem
+```
+███████╗██╗  ██╗ ██████╗ ██████╗ ████████╗██╗  ██╗ █████╗ ███╗   ██╗██████╗     ███╗   ███╗███████╗███╗   ███╗
+██╔════╝██║  ██║██╔═══██╗██╔══██╗╚══██╔══╝██║  ██║██╔══██╗████╗  ██║██╔══██╗    ████╗ ████║██╔════╝████╗ ████║
+███████╗███████║██║   ██║██████╔╝   ██║   ███████║███████║██╔██╗ ██║██║  ██║    ██╔████╔██║█████╗  ██╔████╔██║
+╚════██║██╔══██║██║   ██║██╔══██╗   ██║   ██╔══██║██╔══██║██║╚██╗██║██║  ██║    ██║╚██╔╝██║██╔══╝  ██║╚██╔╝██║
+███████║██║  ██║╚██████╔╝██║  ██║   ██║   ██║  ██║██║  ██║██║ ╚████║██████╔╝    ██║ ╚═╝ ██║███████╗██║ ╚═╝ ██║
+╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝     ╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝
+```
 
-> A two-way semantic compiler for Claude — compress massive documents into dense symbolic notation, reconstruct them back into professional prose, and build a persistent library of saved compressions.
+<p align="center"><strong>The native prompt-layer semantic compression engine for Claude</strong></p>
+<p align="center">60–80% fewer tokens &nbsp;·&nbsp; native skill &nbsp;·&nbsp; persistent memory library &nbsp;·&nbsp; lossless reconstruction</p>
+
+<p align="center">
+  <a href="SKILL.md">Docs</a> &nbsp;·&nbsp;
+  <a href="shorthand-mem.skill">Install</a> &nbsp;·&nbsp;
+  <a href="https://github.com/jai2010/shorthand-mem/issues">Issues</a>
+</p>
 
 ---
 
-## What Is This?
+**shorthand-mem** compresses verbose PRDs, prompt buffers, codebases, and research papers directly inside Claude's environment — before they exhaust your context window. Same precision. A fraction of the token cost. Every compression is saved to memory, exported as a `.shm` file, and reconstructable back to full prose on demand.
 
-**Shorthand-mem** is a Claude skill that acts as an asymmetric compiler for heavy context blocks. You hand it a sprawling PRD, a complex codebase description, or a research paper — and it compresses it by 60–80% into a lossless symbolic notation called **SHM**. Later, you hand it that notation and it reconstructs the full document with no invented details.
+---
 
-Every compression is automatically labelled, saved to Claude's memory, and exported as a `.shm` file — so you build a growing library of squeezed documents you can recall, search, and export at any time.
+## How It Works
 
-**Three supported domains:**
-- `PRD` — Product requirement docs, specs, architecture decisions
-- `CODE` — Function signatures, API contracts, data schemas, system interfaces
-- `PAPER` — Research papers, methodology, benchmarks, hypotheses
+```text
+  Raw Input — PRD / Codebase / Research Paper
+                        │
+                        ▼
+  ┌─────────────────────────────────────────────────────┐
+  │              shorthand-mem Core Engine              │
+  ├─────────────────────────────────────────────────────┤
+  │  1. Domain Router    (PRD · CODE · PAPER)           │
+  │  2. Token Mapper     (prose → predicate DSL)        │
+  │  3. Dependency Graph (surfaces hidden trade-offs)   │
+  │  4. Density Compactor (60–80% token reduction)      │
+  └─────────────────────────────────────────────────────┘
+                        │
+                        ▼
+       High-Density SHM Token Stream
+  (Lossless · Reconstructable · Persistently Saved)
+```
+
+---
+
+## Key Features
+
+- **Native Skill** — Runs inside Claude as an imported `.skill` file. No external APIs, no wrapper latency, no extra setup.
+- **Lossless Compression** — All numbers, error codes, variable names, SLAs, and architectural identifiers are preserved exactly. EXPAND reconstructs the original with full declarative confidence.
+- **Persistent Memory Library** — Every SQUEEZE is auto-labelled, saved to Claude's cross-session memory, and exported as a `.shm` file. Build a growing library you can `RECALL`, `SEARCH`, and `EXPORT ALL`.
+- **Three Domain Modes** — Dedicated compression strategies for PRDs, codebases, and research papers, each with domain-specific token extensions.
+- **Prompt-Injection Safe** — Structured metadata wrapping keeps raw, untrusted data isolated so compressed variables don't bleed into execution environments.
+- **KV-Cache Friendly** — Standardised output structures stabilise prefix alignment, maximising downstream API cache hit rates.
 
 ---
 
 ## Why Use It?
 
-| Problem | Without Shorthand-mem | With Shorthand-mem |
+| Problem | Without shorthand-mem | With shorthand-mem |
 |---|---|---|
 | Long PRD in every prompt | Wastes 600–1000 tokens per send | ~120 tokens per send |
-| Re-explaining architecture repeatedly | Copy-paste entire spec | `RECALL PRD_billing_2025-06-24` |
-| Losing context between sessions | Re-upload docs every time | Persistent `.shm` library |
-| Extracting key decisions from a 40-page paper | Read the whole thing | `SQUEEZE PAPER <abstract+methods>` |
+| Re-explaining architecture repeatedly | Copy-paste entire spec every time | `RECALL PRD_billing_2025-06-24` |
+| Context lost between sessions | Re-upload docs every session | Persistent `.shm` library across all chats |
+| Extracting decisions from a 40-page paper | Read the whole thing | `SQUEEZE PAPER <abstract+methods>` |
+| Bloated agent coordination records | Full history in every agent turn | Compressed state replay via SHM |
 
 ---
 
 ## Installation
 
-Download `shorthand-mem.skill` and install it into your Claude environment via the Skills panel. Once installed, the commands below activate automatically — no setup needed.
+1. Download [`shorthand-mem.skill`](./shorthand-mem.skill)
+2. In Claude, go to **Settings → Skills**
+3. Click **Install Skill** and upload the file
+
+Once installed, all commands below activate automatically — no configuration needed.
+
+---
+
+## Commands
+
+| Command | What It Does |
+|---|---|
+| `SQUEEZE PRD <text>` | Compress a product spec or architecture doc |
+| `SQUEEZE CODE <text>` | Compress a codebase, API, or function description |
+| `SQUEEZE PAPER <text>` | Compress a research paper section |
+| `EXPAND <shm_block>` | Reconstruct full prose from any SHM block |
+| `LIST SQUEEZES` | Show your full compression library as a table |
+| `RECALL {label}` | Retrieve a specific squeeze by label |
+| `SEARCH {keyword}` | Search across all saved labels and content |
+| `DELETE {label}` | Remove a squeeze from memory (with confirmation) |
+| `EXPORT ALL` | Dump your entire library to a single `.shm` file |
 
 ---
 
 ## Token Reference (The DSL)
 
-Shorthand-mem translates natural text into predicate logic tokens. All numbers, variable names, error codes, and architectural identifiers are preserved exactly.
+Shorthand-mem translates natural language into structured predicate logic tokens. All identifiers, version strings, error codes, and numeric boundaries are preserved verbatim.
 
 ### Universal Tokens — All Domains
 
@@ -50,7 +109,7 @@ Shorthand-mem translates natural text into predicate logic tokens. All numbers, 
 | `RULE(Condition)` | Invariant logic pattern or architectural trade-off |
 | `ERR(Code/Msg)` | Explicit failure boundary or error handler |
 
-### Extended Tokens — PAPER Domain Only
+### Extended Tokens — PAPER Domain
 
 | Token | Meaning |
 |---|---|
@@ -59,29 +118,15 @@ Shorthand-mem translates natural text into predicate logic tokens. All numbers, 
 | `RESULT(Finding)` | Key quantitative or qualitative outcome |
 | `LIMIT(Scope)` | Stated limitation, scope boundary, or confound |
 
-**Logical operators:** `→`, `==`, `!=`, `&&`, `||`, `>`, `<`, `>=`, `<=`, `⇒`
+**Logical operators:** `→` `==` `!=` `&&` `||` `>` `<` `>=` `<=` `⇒`
 
 ---
 
-## Commands
+## Full Example: PRD → SHM → Expand
 
-| Command | Description |
-|---|---|
-| `SQUEEZE PRD \|CODE\| PAPER <payload>` | Compress a document into SHM notation |
-| `EXPAND <shm_block>` | Reconstruct SHM notation into full prose |
-| `LIST SQUEEZES` | Show all saved compressions as a table |
-| `RECALL {label}` | Retrieve a specific squeeze by label |
-| `SEARCH {keyword}` | Search across all saved labels and content |
-| `DELETE {label}` | Remove a squeeze from memory (with confirmation) |
-| `EXPORT ALL` | Dump entire library to a single `.shm` file |
+The following is a real compression run on a multi-channel notification delivery system spec.
 
----
-
-## Full Example: PRD → SHM → Stats
-
-The following example shows Shorthand-mem applied to a realistic product requirement section for a **multi-channel notification delivery system**.
-
-### Input PRD (Original)
+### Original PRD (~880 tokens)
 
 > **Feature: Notification Delivery Service**
 >
@@ -95,11 +140,9 @@ The following example shows Shorthand-mem applied to a realistic product require
 >
 > The system must enforce a per-user rate limit of 50 notifications per hour across all channels combined. Exceeding this limit must result in the notification being silently dropped and a RateLimitExceeded event written to the EventLog. This is a high-risk, high-visibility feature — any delivery failure for Critical notifications must be escalated immediately to the engineering lead.
 
----
+### SQUEEZE Output (~195 tokens)
 
-### SQUEEZE Output
-
-**Command used:** `SQUEEZE PRD <above text>`
+**Command:** `SQUEEZE PRD <above>`
 
 ```shm
 OBJ(Notification_Delivery_Svc)
@@ -128,78 +171,60 @@ IF rate_exceeded → DROP silently + WRITE(EventLog.RateLimitExceeded)
 RISK(Critical_delivery_failure)++ → ESCALATE(engineering_lead)
 ```
 
-📊 **Compression: ~880 → ~195 tokens (78% reduction)**
-💾 Saved as `PRD_notification_delivery_2025-06-24`
-
----
+📊 **~880 → ~195 tokens — 78% reduction**
+💾 Auto-saved as `PRD_notification_delivery_2025-06-24`
 
 ### What Was Preserved
 
-Every factual boundary from the original PRD survives the compression:
-
 | Detail | Original | SHM |
 |---|---|---|
-| Channels | in-app, email, push | `(in-app, email, push)` |
+| Delivery channels | in-app, email, push | `(in-app, email, push)` |
 | Critical SLA | 5 seconds | `deliver <= 5s` |
 | Standard SLA | 60 seconds | `deliver <= 60s` |
 | SendGrid retry count | 3 retries | `RETRY x3` |
-| Backoff start | 500ms, exponential | `backoff(500ms, exponential)` |
-| Dead letter on failure | DeadLetterQueue | `WRITE(DeadLetterQueue)` |
-| Escalation channel | PagerDuty | `PAGE(PagerDuty)` |
+| Backoff parameters | 500ms, exponential | `backoff(500ms, exponential)` |
+| Failure escalation | DeadLetterQueue + PagerDuty | `WRITE(DeadLetterQueue) + PAGE(PagerDuty)` |
 | Push opt-out field | push_enabled = false | `user.push_enabled == false` |
-| FCM token action | delete stale token | `DELETE(UserDevices.token)` |
+| FCM token action | Delete stale token | `DELETE(UserDevices.token)` |
 | Hard dependency | UserPreferences | `DEP(UserPreferences_Svc)++` |
 | Soft dependency | Analytics | `DEP(Analytics_Svc)` |
 | Rate limit | 50/user/hr | `50 notifications/user/hr` |
 | Rate limit action | EventLog entry | `WRITE(EventLog.RateLimitExceeded)` |
 
-Nothing lost. No invention. 78% fewer tokens.
+Nothing invented. Nothing lost. 78% fewer tokens.
 
----
+### EXPAND Output
 
-### EXPAND It Back
-
-**Command used:** `EXPAND <above shm block>`
+**Command:** `EXPAND <above shm block>`
 
 > ## Notification Delivery Service Specifications
 >
 > ### Overview
->
-> The Notification Delivery Service is responsible for routing and delivering all system-generated alerts to end users across three channels: in-app, email, and push.
+> The Notification Delivery Service routes and delivers system-generated alerts across three channels: in-app, email, and push.
 >
 > ### Priority Queue
->
-> The service enforces a priority-based delivery model. Critical notifications must be delivered within 5 seconds of entering the queue. Standard notifications have a delivery window of 60 seconds.
+> Critical notifications must be delivered within 5 seconds. Standard notifications have a 60-second delivery window.
 >
 > ### Email Delivery (SendGrid)
->
-> All outbound email notifications are routed through SendGrid. If SendGrid returns a 5xx error or fails to respond, the service retries the delivery up to three times, applying exponential backoff starting at 500ms. If all three attempts fail, the notification is written to the Dead Letter Queue and the on-call engineer is paged via PagerDuty.
+> All email is routed through SendGrid. On a 5xx error or response timeout, the service retries up to three times with exponential backoff starting at 500ms. After three failures, the notification is written to the Dead Letter Queue and PagerDuty pages the on-call engineer.
 >
 > ### Push Delivery (FCM)
->
-> Push notifications are routed through Firebase Cloud Messaging. Users with `push_enabled = false` in their preferences are silently skipped — no error is raised. If FCM returns a token-expired error, the stale token is deleted from the UserDevices table and the delivery attempt is skipped.
+> Push is routed through Firebase Cloud Messaging. Users with `push_enabled = false` are silently skipped. On a token-expired error, the stale token is deleted from UserDevices and the delivery attempt is abandoned.
 >
 > ### Service Dependencies
->
-> The Notification Delivery Service has a hard dependency on the UserPreferences service. If UserPreferences is unavailable, all notification dispatches are suspended and queued for replay. No notification may be sent without a confirmed preference lookup. The Analytics service is a soft dependency used for delivery event tracking. If Analytics is unavailable, the notification is still sent but the delivery event is silently dropped with a warning log entry.
+> UserPreferences is a hard dependency — if unavailable, all dispatches are suspended and queued for replay. No notification may be sent without a confirmed preference lookup. Analytics is a soft dependency — if unavailable, the notification still sends but the delivery event is dropped with a warning log.
 >
 > ### Rate Limiting
->
-> A per-user rate limit of 50 notifications per hour applies across all channels combined. Notifications that exceed this limit are silently dropped, and a `RateLimitExceeded` event is written to the EventLog.
+> A 50 notifications/user/hour limit applies across all channels. Overflow is silently dropped; a `RateLimitExceeded` event is written to the EventLog.
 >
 > ### Escalation
->
-> Any delivery failure for Critical notifications must be escalated immediately to the engineering lead.
+> Any Critical notification delivery failure must be escalated immediately to the engineering lead.
 
 ---
 
 ## More Examples
 
 ### SQUEEZE CODE
-
-```
-SQUEEZE CODE <function or class description>
-```
 
 ```shm
 OBJ(RateLimiter_cls)
@@ -210,15 +235,9 @@ RULE: len(timestamps) > maxRequests → RETURN false
 RULE: len(timestamps) <= maxRequests → APPEND now() + RETURN true
 ERR(InvalidClientError) → IF clientId == null || clientId == "" → THROW
 ```
-📊 Compression: ~548 → ~108 tokens (80% reduction)
-
----
+📊 ~548 → ~108 tokens (80% reduction)
 
 ### SQUEEZE PAPER
-
-```
-SQUEEZE PAPER <abstract or methodology section>
-```
 
 ```shm
 OBJ(Medical_NER_Study)
@@ -227,7 +246,7 @@ METH: Fine-tune(BioBERT, ClinicalBERT) ON i2b2_2010 | 5-fold_cross-validation
 RESULT: BioBERT F1=0.89 > GPT-4 F1=0.81 ON NER_subtask
 LIMIT: English-only + single-hospital → low generalizability
 ```
-📊 Compression: ~248 → ~60 tokens (76% reduction)
+📊 ~248 → ~60 tokens (76% reduction)
 
 ---
 
@@ -235,21 +254,21 @@ LIMIT: English-only + single-hospital → low generalizability
 
 Every SQUEEZE automatically:
 
-1. **Reports compression** — shows original vs. compressed token count and percentage saved
-2. **Auto-labels** — generates a label in `DOMAIN_topic_YYYY-MM-DD` format
-3. **Checks for conflicts** — appends `_v2`, `_v3` if the label already exists
+1. **Reports compression** — original vs. compressed token count and % saved
+2. **Auto-labels** — `DOMAIN_topic_YYYY-MM-DD` format (e.g. `PRD_billing_2025-06-24`)
+3. **Checks for conflicts** — appends `_v2`, `_v3` if the label already exists, never overwrites silently
 4. **Saves to memory** — persists across all future Claude sessions
-5. **Exports a file** — writes a `.shm` file you can download
-6. **Prompts for rename** — reply with any string to override the auto-label
+5. **Exports a file** — downloads a `.shm` file
+6. **Prompts for rename** — reply with any plain string to override the auto-label
 
 ```
 LIST SQUEEZES
 
-| # | Label                              | Domain | Date       | Preview                              |
-|---|------------------------------------|--------|------------|--------------------------------------|
-| 1 | PRD_notification_delivery_2025-06  | PRD    | 2025-06-24 | OBJ(Notification_Delivery_Svc) GOA.. |
-| 2 | CODE_ratelimiter_2025-06-24        | CODE   | 2025-06-24 | OBJ(RateLimiter_cls) REQ: construc.. |
-| 3 | PAPER_medical_ner_2025-06-24       | PAPER  | 2025-06-24 | OBJ(Medical_NER_Study) HYP: Domain.. |
+| # | Label                             | Domain | Date       | Preview                             |
+|---|-----------------------------------|--------|------------|-------------------------------------|
+| 1 | PRD_notification_delivery_2025-06 | PRD    | 2025-06-24 | OBJ(Notification_Delivery_Svc)...   |
+| 2 | CODE_ratelimiter_2025-06-24       | CODE   | 2025-06-24 | OBJ(RateLimiter_cls) REQ: const...  |
+| 3 | PAPER_medical_ner_2025-06-24      | PAPER  | 2025-06-24 | OBJ(Medical_NER_Study) HYP: Dom...  |
 ```
 
 ---
@@ -257,17 +276,17 @@ LIST SQUEEZES
 ## Quick Reference
 
 ```
-SQUEEZE PRD <text>          Compress a PRD or spec
-SQUEEZE CODE <text>         Compress a codebase or API description  
-SQUEEZE PAPER <text>        Compress a research paper section
+SQUEEZE PRD <text>        Compress a PRD or spec
+SQUEEZE CODE <text>       Compress a codebase or API description
+SQUEEZE PAPER <text>      Compress a research paper section
 
-EXPAND <shm_block>          Reconstruct full prose from SHM
+EXPAND <shm_block>        Reconstruct full prose from SHM
 
-LIST SQUEEZES               Show all saved compressions
-RECALL {label}              Retrieve a specific squeeze
-SEARCH {keyword}            Search across all saved content
-DELETE {label}              Remove a squeeze (asks for confirmation)
-EXPORT ALL                  Dump full library to one .shm file
+LIST SQUEEZES             Show all saved compressions
+RECALL {label}            Retrieve a specific squeeze
+SEARCH {keyword}          Search across all saved content
+DELETE {label}            Remove a squeeze (asks for confirmation)
+EXPORT ALL                Dump full library to one .shm file
 ```
 
 ---
