@@ -26,7 +26,9 @@
 <p align="center">
   <img src="shorthand-mem-demo.png" alt="shorthand-mem Token Compression Metrics" width="800">
 </p>
+
 ---
+
 ## How It Works
 
 ```text
