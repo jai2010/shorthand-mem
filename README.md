@@ -20,6 +20,13 @@
 > See [shorthand-mem-mcp](https://github.com/jai2010/shorthand-mem-mcp) — same commands, compression routed to Haiku separately from your Claude session.
 
 ---
+## Demo
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/jai2010/shorthand-mem/main/shorthand-mem-demo.png" alt="shorthand-mem compression demo" width="860">
+</p>
+<p align="center"><i>880 tokens compressed to 195 — 78% reduction. Syntax-highlighted SHM output with fidelity score.</i></p>
+---
 
 ## What It Does
 
